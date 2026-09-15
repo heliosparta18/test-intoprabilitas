@@ -1,0 +1,148 @@
+{
+  "info": {
+    "name": "Praktikum Interoperabilitas - RESTful API Produk & Stok",
+    "_postman_id": "c7a8b912-34ef-4567-89ab-cdef01234567",
+    "description": "Koleksi endpoint REST API untuk Praktikum Pertemuan 4: Mekanisme Komunikasi dan Pertukaran Data Berbasis HTTP.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "1. GET - Tampilkan Semua Produk",
+      "request": {
+        "method": "GET",
+        "header": [
+          { "key": "Accept", "value": "application/json" }
+        ],
+        "url": {
+          "raw": "{{base_url}}/api/products",
+          "host": ["{{base_url}}"],
+          "path": ["api", "products"]
+        }
+      }
+    },
+    {
+      "name": "2. GET - Tampilkan Produk Berdasarkan ID",
+      "request": {
+        "method": "GET",
+        "header": [
+          { "key": "Accept", "value": "application/json" }
+        ],
+        "url": {
+          "raw": "{{base_url}}/api/products/1",
+          "host": ["{{base_url}}"],
+          "path": ["api", "products", "1"]
+        }
+      }
+    },
+    {
+      "name": "3. POST - Tambah Produk Baru",
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Accept", "value": "application/json" },
+          { "key": "Content-Type", "value": "application/json" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"category_id\": 1,\n  \"sku\": \"FNB-005\",\n  \"name\": \"Teh Hitam Celup Kotak 25s\",\n  \"description\": \"Teh celup aroma melati pilihan kemasan kotak isi 25 sachet\",\n  \"price\": 12500,\n  \"stock\": 50\n}"
+        },
+        "url": {
+          "raw": "{{base_url}}/api/products",
+          "host": ["{{base_url}}"],
+          "path": ["api", "products"]
+        }
+      }
+    },
+    {
+      "name": "4. PATCH - Update Sebagian Data Produk",
+      "request": {
+        "method": "PATCH",
+        "header": [
+          { "key": "Accept", "value": "application/json" },
+          { "key": "Content-Type", "value": "application/json" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"price\": 48000,\n  \"name\": \"Kopi Arabika Premium 250gr\"\n}"
+        },
+        "url": {
+          "raw": "{{base_url}}/api/products/1",
+          "host": ["{{base_url}}"],
+          "path": ["api", "products", "1"]
+        }
+      }
+    },
+    {
+      "name": "5. POST - Mutasi Stok Barang Masuk (Restock)",
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Accept", "value": "application/json" },
+          { "key": "Content-Type", "value": "application/json" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"type\": \"in\",\n  \"quantity\": 15,\n  \"notes\": \"Restock kiriman dari distributor\"\n}"
+        },
+        "url": {
+          "raw": "{{base_url}}/api/products/1/stock",
+          "host": ["{{base_url}}"],
+          "path": ["api", "products", "1", "stock"]
+        }
+      }
+    },
+    {
+      "name": "6. POST - Pengujian Validasi Stok Kurang (Error 422)",
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Accept", "value": "application/json" },
+          { "key": "Content-Type", "value": "application/json" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"type\": \"out\",\n  \"quantity\": 9999,\n  \"notes\": \"Pengurangan melebihi stok tersedia\"\n}"
+        },
+        "url": {
+          "raw": "{{base_url}}/api/products/1/stock",
+          "host": ["{{base_url}}"],
+          "path": ["api", "products", "1", "stock"]
+        }
+      }
+    },
+    {
+      "name": "7. DELETE - Hapus Data Produk",
+      "request": {
+        "method": "DELETE",
+        "header": [
+          { "key": "Accept", "value": "application/json" }
+        ],
+        "url": {
+          "raw": "{{base_url}}/api/products/1",
+          "host": ["{{base_url}}"],
+          "path": ["api", "products", "1"]
+        }
+      }
+    },
+    {
+      "name": "8. GET - Pengujian Data Tidak Ditemukan (Error 404)",
+      "request": {
+        "method": "GET",
+        "header": [
+          { "key": "Accept", "value": "application/json" }
+        ],
+        "url": {
+          "raw": "{{base_url}}/api/products/99999",
+          "host": ["{{base_url}}"],
+          "path": ["api", "products", "99999"]
+        }
+      }
+    }
+  ],
+  "variable": [
+    {
+      "key": "base_url",
+      "value": "http://127.0.0.1:8000"
+    }
+  ]
+}
